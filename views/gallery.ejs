@@ -1,0 +1,134 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="/gallery-style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="gallery">
+        <div class="gallery__item gallery__item--1">
+          <a class="gallery__link">
+            <img src="<%= resimler[0] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[0] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--2">
+          <a class="gallery__link">
+            <img src="<%= resimler[1] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[1] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--3">
+          <a class="gallery__link">
+            <img src="<%= resimler[2] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[2] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--4">
+          <a class="gallery__link">
+            <img src="<%= resimler[3] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[3] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--5">
+          <a class="gallery__link">
+            <img src="<%= resimler[4] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[4] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--6">
+          <a class="gallery__link">
+            <img src="<%= resimler[5] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[5] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--7">
+          <a class="gallery__link">
+            <img src="<%= resimler[6] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[6] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--8">
+          <a class="gallery__link">
+            <img src="<%= resimler[7] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[7] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--9">
+          <a class="gallery__link">
+            <img src="<%= resimler[8] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[8] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--10">
+          <a class="gallery__link">
+            <img src="<%= resimler[9] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[9] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--11">
+          <a class="gallery__link">
+            <img src="<%= resimler[10] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[10] %></span>
+            </div>
+          </a>
+        </div>
+        <div class="gallery__item gallery__item--12">
+          <a class="gallery__link">
+            <img src="<%= resimler[11] %>" class="gallery__image" />
+            <div class="gallery__overlay">
+              <span><%= basliklar[11] %></span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <h3
+        id="h3"
+        style="
+          margin: 0;
+          position: absolute;
+          left: 50%;
+          -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+        "
+      >
+        <- Geri Dön
+      </h3>
+      <div style="height: 40px"></div>
+    </div>
+
+    <script>
+      var h3 = document.getElementById("h3");
+      h3.addEventListener("click", () => {
+        window.location.href = "http://localhost:8080/?url=" + "<%= url_id %>";
+      });
+    </script>
+  </body>
+</html>

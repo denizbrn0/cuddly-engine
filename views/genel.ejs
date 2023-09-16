@@ -1,0 +1,172 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Genel Ayarlar</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active">Genel</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Default box -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <!-- form start -->
+            <form method="post" action="/genel-ayarlar">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Mektup Kart Başlığı</label>
+                  <input
+                    type="text"
+                    name="yaziBaslik"
+                    class="form-control"
+                    placeholder="<%= yaziBaslik %>"
+                    value="<%= yaziBaslik %>"
+                    maxlength="20"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Mektup Kart Açıklaması</label>
+                  <input
+                    type="text"
+                    name="yaziAciklama"
+                    class="form-control"
+                    placeholder="<%= yaziAciklama %>"
+                    value="<%= yaziAciklama %>"
+                    maxlength="60"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Galeri Başlığı</label>
+                  <input
+                    type="text"
+                    name="galeriBaslik"
+                    class="form-control"
+                    placeholder="<%= galeriBaslik %>"
+                    value="<%= galeriBaslik %>"
+                    maxlength="20"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Galeri Kart Açıklaması</label>
+                  <input
+                    type="text"
+                    name="galeriAciklama"
+                    class="form-control"
+                    placeholder="<%= galeriAciklama %>"
+                    value="<%= galeriAciklama %>"
+                    maxlength="60"
+                    required
+                  />
+                </div>
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    name="check"
+                    value="0"
+                    id="exampleCheck1"
+                    required
+                  />
+                  <label class="form-check-label" for="exampleCheck1"
+                    >Değişiklik yapmak istiyorum</label
+                  >
+                </div>
+              </div>
+
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Değiştir</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!--- 
+          <div class="card card-primary">
+            <form
+              method="post"
+              action="/genel-ayarlar"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="exampleInputFile">Galeri Fotoğrafı</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        name="anaResim"
+                        class="custom-file-input"
+                        id="exampleInputFile"
+                      />
+                      <label class="custom-file-label" for="exampleInputFile"
+                        >Fotoğraf Yükle</label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Değiştir</button>
+              </div>
+            </form>
+            
+          </div>
+            -->
+
+          <div class="card card-primary">
+            <!-- form start -->
+            <form method="post" action="/genel-tarih">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="exampleInputFile">Gerisayım Tarih Ayarı</label>
+                  <div class="input-group">
+                    <input type="date" name="tarih" value="<%= tarih %>" />
+                    <input type="time" name="saat" value="<%= saat %>" />
+                    <div style="height: 10px"></div>
+                  </div>
+
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input"
+                    name="isTarih" value="1" id="exampleCheck2" <% if(isTarih ==
+                    1){ %> checked <% } %> />
+                    <label class="form-check-label" for="exampleCheck2"
+                      >Geri sayım aktif olsun. (Eğer gerisayımın aktif olmasını
+                      istiyorsan işaretle)</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Değiştir</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

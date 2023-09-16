@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @layer demo, countdown;
+
+      @layer countdown {
+        .countdown {
+          width: fit-content;
+          display: inline-grid;
+          grid-auto-flow: column;
+          grid-auto-columns: 1fr;
+          gap: 1rem;
+          position: absolute;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          left: 50%;
+          -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+        }
+        .countdown > .part {
+          display: grid;
+          gap: 0.5rem;
+        }
+        .countdown > .part > .number {
+          aspect-ratio: 1;
+          display: grid;
+          place-items: center;
+          border-radius: 50%;
+          border: 1px solid hsl(0 0% 50% / 0.5);
+          font-size: 1.5rem;
+          position: relative;
+        }
+        .countdown > .part.days {
+          --num: 365;
+        }
+        .countdown > .part.hours {
+          --num: 24;
+        }
+        .countdown > .part:where(.minutes, .seconds) {
+          --num: 60;
+        }
+        .countdown > .part > .number::after {
+          content: "";
+          position: absolute;
+          inset: calc(var(--border-size) * -0.5);
+          border-radius: inherit;
+
+          --degree: calc(360deg / var(--num) * (var(--num) - var(--value, 0)));
+          background-image: conic-gradient(
+            var(--accent) var(--degree),
+            transparent calc(var(--degree) + 0.1deg)
+          );
+
+          --border-size: 4px;
+          --mask-image: radial-gradient(
+            100% 100%,
+            transparent calc(50% - var(--border-size)),
+            black calc(50% - var(--border-size) + 1px)
+          );
+          -webkit-mask-image: var(--mask-image);
+          mask-image: var(--mask-image);
+        }
+        .countdown > .part > .text {
+          text-align: center;
+          opacity: 0.75;
+        }
+      }
+      @layer demo {
+        * {
+          box-sizing: border-box;
+        }
+        body {
+          background-color: #060d1f;
+          color: #fefefe;
+          font-family: system-ui, sans-serif;
+          text-align: center;
+        }
+        h2 {
+          margin-top: 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <time
+      class="countdown"
+      date-time="<%= tarih %> <%= saat %>"
+      style="--accent: green"
+    ></time>
+    <script>
+      class Countdown {
+        constructor(el) {
+          this.el = el;
+          this.targetDate = new Date(el.getAttribute("date-time"));
+          this.createCountDownParts();
+          this.countdownFunction();
+          this.countdownLoopId = setInterval(
+            this.countdownFunction.bind(this),
+            1000
+          );
+        }
+        createCountDownParts() {
+          ["days", "hours", "minutes", "seconds"].forEach((part) => {
+            const partEl = document.createElement("div");
+            partEl.classList.add("part", part);
+            const textEl = document.createElement("div");
+            textEl.classList.add("text");
+            textEl.innerText = part;
+            const numberEl = document.createElement("div");
+            numberEl.classList.add("number");
+            numberEl.innerText = 0;
+            partEl.append(numberEl, textEl);
+            this.el.append(partEl);
+            this[part] = numberEl;
+          });
+        }
+
+        countdownFunction() {
+          const currentDate = new Date();
+
+          if (currentDate > this.targetDate) {
+            return clearInterval(this.intervalId);
+          }
+
+          const remaining = this.getRemaining(this.targetDate, currentDate);
+          Object.entries(remaining).forEach(([part, value]) => {
+            this[part].style.setProperty("--value", value);
+            this[part].innerText = value;
+          });
+        }
+
+        getRemaining(target, now) {
+          let seconds = Math.floor((target - now) / 1000);
+          let minutes = Math.floor(seconds / 60);
+          let hours = Math.floor(minutes / 60);
+          let days = Math.floor(hours / 24);
+          hours = hours - days * 24;
+          minutes = minutes - days * 24 * 60 - hours * 60;
+          seconds =
+            seconds - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
+          return { days, hours, minutes, seconds };
+        }
+      }
+      var t = setInterval(checkFunction, 1000);
+      function checkFunction() {
+        var tarih = "<%= tarih %>";
+        var url_id = "<%= url_id %>";
+        var saat = "<%= saat %>";
+        const d = new Date();
+        var currentTime = "";
+        var timeList = d.toLocaleTimeString().split(":");
+        if (timeList[0].length == 1) {
+          timeList[0] = "0" + timeList[0];
+          currentTime = timeList[0] + ":" + timeList[1];
+        } else {
+          currentTime = timeList[0] + ":" + timeList[1];
+        }
+
+        var todayDate = new Date().toISOString().slice(0, 10);
+        //console.log(currentTime + "  " + saat);
+        //console.log(todayDate.toString() + "  " + tarih);
+
+        var okTarih = false;
+        var onTarih = false;
+        var okSaat = false;
+
+        if (
+          parseInt(saat.split(":")[0]) == parseInt(currentTime.split(":")[0]) &&
+          parseInt(saat.split(":")[1]) <= parseInt(currentTime.split(":")[1])
+        ) {
+          okSaat = true;
+        } else if (
+          parseInt(saat.split(":")[0]) < parseInt(currentTime.split(":")[0])
+        ) {
+          okSaat = true;
+        }
+        if (parseInt(tarih.split("-")[1]) < parseInt(todayDate.split("-")[1])) {
+          okTarih = true;
+        } else if (
+          parseInt(tarih.split("-")[1]) == parseInt(todayDate.split("-")[1])
+        ) {
+          if (
+            parseInt(tarih.split("-")[2]) < parseInt(todayDate.split("-")[2])
+          ) {
+            okTarih = true;
+          } else if (
+            parseInt(tarih.split("-")[2]) == parseInt(todayDate.split("-")[2])
+          ) {
+            onTarih = true;
+          }
+        }
+        console.log(
+          "oktarih - oksaat - ontarih   " +
+            okTarih +
+            " " +
+            okSaat +
+            " " +
+            onTarih
+        );
+
+        if (okTarih || (onTarih && okSaat)) {
+          fetch("http://localhost:8080/countdown", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ isTime: 0, url_id: url_id }),
+          }).then((response) => {
+            response.json();
+            location.reload();
+          });
+        }
+      }
+      const countdownEls = document.querySelectorAll(".countdown") || [];
+      countdownEls.forEach((countdownEl) => {
+        new Countdown(countdownEl);
+      });
+    </script>
+  </body>
+</html>
